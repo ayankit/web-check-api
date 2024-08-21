@@ -52,6 +52,7 @@ func (s *Server) routes() {
 	s.mux.Handle("GET /api/social-tags", handlers.HandleGetSocialTags(s.checks.SocialTags))
 	s.mux.Handle("GET /api/tls", handlers.HandleTLS(s.checks.Tls))
 	s.mux.Handle("GET /api/trace-route", handlers.HandleTraceRoute())
+	s.mux.Handle("GET /api/tech-stack", handlers.HandleTechStack())
 
 	s.srv.Handler = s.CORS(s.mux)
 }
