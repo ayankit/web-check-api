@@ -9,8 +9,8 @@ on:
       - "**.go"
 
 env:
-  DH_IMAGE: lissy93/web-check-api
-  GH_IMAGE: ${{ github.repository_owner }}/${{ github.event.repository.name }}
+  DH_USERNAME: ayankit
+  DH_IMAGE: ayankit/web-check-api
 
 jobs:
   docker:
@@ -26,19 +26,16 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: |
-            ${{ env.DH_IMAGE }}
-            ghcr.io/${{ env.GH_IMAGE }}
+          images: ${{ env.DH_IMAGE }}
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
             type=ref,event=branch
             type=ref,event=tag
           labels: |
-            maintainer=Lissy93
+            maintainer=ayankit
             org.opencontainers.image.title=Web-Check-API
-            org.opencontainers.image.description=REST API for revealing public data for any website
-            org.opencontainers.image.documentation=https://web-check.xyz
-            org.opencontainers.image.authors=Alicia Sykes
+            org.opencontainers.image.description=REST API for revealing public data for any website, fork of xray-web repo.
+            org.opencontainers.image.authors=Ankit Yadav
             org.opencontainers.image.licenses=MIT
 
       - name: 🔧 Set up QEMU
@@ -50,15 +47,8 @@ jobs:
       - name: 🔑 Login to DockerHub
         uses: docker/login-action@v3
         with:
-          username: lissy93
+          username: ${{ env.DH_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
-
-      - name: 🔑 Login to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🚦 Check Registry Status
         uses: crazy-max/ghaction-docker-status@v3
