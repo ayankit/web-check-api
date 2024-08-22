@@ -3,15 +3,24 @@
   <i>A light-weight Go API for discovering website data</i><br />
 </p>
 
-### Usage
+## Usage
 
-#### Deploying using Docker
+### Deploying using Docker
 
 ```
 docker run -p 8080:8080 ayankit/web-check-api
 ```
+### Example
+Health Check
+```
+http://localhost:8080/health
+```
+Get IP of `google.com`
+```
+http://localhost:8080/api/get-ip?url=google.com
+```
 
-### Available Endpoints
+## Available Endpoints
 ```
 /health - Health check
 
